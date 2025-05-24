@@ -2,6 +2,10 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
 import transporter from "../config/nodemailer.js";
+import {
+  EMAIL_VERIFY_TEMPLATE,
+  PASSWORD_RESET_TEMPLATE,
+} from "../config/emailTemplates.js";
 
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -118,7 +122,11 @@ export const sendVerifyOtp = async (req, res) => {
       from: process.env.SENDER_EMAIL,
       to: user.email,
       subject: "Account verification OTP",
-      text: `Your OTP is ${otp}. verify your account using this OTP`,
+      // text: `Your OTP is ${otp}. verify your account using this OTP`,
+      html: EMAIL_VERIFY_TEMPLATE.replace("{{otp}}", otp).replace(
+        "{{email}}",
+        user.email
+      ),
     };
     await transporter.sendMail(mailOptions);
 
@@ -191,7 +199,11 @@ export const sendResetOtp = async (req, res) => {
       from: process.env.SENDER_EMAIL,
       to: user.email,
       subject: "Password Reset OTP",
-      text: `Your OTP for reseting your password is ${otp}. verify your account using this OTP`,
+      // text: `Your OTP for reseting your password is ${otp}. verify your account using this OTP`,
+      html: PASSWORD_RESET_TEMPLATE.replace("{{otp}}", otp).replace(
+        "{{email}}",
+        user.email
+      ),
     };
     await transporter.sendMail(mailOptions);
 
@@ -207,7 +219,7 @@ export const resetPassword = async (req, res) => {
   if (!email || !otp || !newPassword) {
     return res.json({
       success: false,
-      message: "Email, OTP and new password are required",
+      message: "Email, OTP and new password are required"
     });
   }
 
