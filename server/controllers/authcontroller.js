@@ -31,8 +31,8 @@ export const register = async (req, res) => {
     });
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      secure: process.env.NODE_ENV === "production", // true in prod
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // 'none' needed for cross-site cookies
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -107,7 +107,7 @@ export const sendVerifyOtp = async (req, res) => {
     const { userId } = req.body;
 
     const user = await userModel.findById(userId);
-    if (user.isAccountVerfied) {
+    if (user.isAccountVerified) {
       return res.json({ success: false, message: "Account already verified" });
     }
 
@@ -219,7 +219,7 @@ export const resetPassword = async (req, res) => {
   if (!email || !otp || !newPassword) {
     return res.json({
       success: false,
-      message: "Email, OTP and new password are required"
+      message: "Email, OTP and new password are required",
     });
   }
 
