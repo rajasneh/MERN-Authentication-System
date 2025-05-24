@@ -7,8 +7,9 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { backendUrl, setIsLoggedin, getUserData ,isLoggedin,userData} = useContext(AppContent);
-
+  const { backendUrl, setIsLoggedin, getUserData, isLoggedin, userData } =
+    useContext(AppContent);
+  axios.defaults.withCredentials = true;
   const [state, setState] = useState("Sign Up");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,11 +20,15 @@ const Login = () => {
       e.preventDefault();
       axios.defaults.withCredentials = true;
       if (state === "Sign Up") {
-        const { data } = await axios.post(backendUrl + "/api/auth/register", {
-          name,
-          email,
-          password,
-        });
+        const { data } = await axios.post(
+          backendUrl + "/api/auth/register",
+          {
+            name,
+            email,
+            password,
+          },
+          { withCredentials: true }
+        );
 
         if (data.success) {
           setIsLoggedin(true);
@@ -33,10 +38,14 @@ const Login = () => {
           toast.error(data.message);
         }
       } else {
-        const { data } = await axios.post(backendUrl + "/api/auth/login", {
-          email,
-          password,
-        });
+        const { data } = await axios.post(
+          backendUrl + "/api/auth/login",
+          {
+            email,
+            password,
+          },
+          { withCredentials: true }
+        );
 
         if (data.success) {
           setIsLoggedin(true);
@@ -57,7 +66,6 @@ const Login = () => {
   }, [isLoggedin, userData, navigate]);
   return (
     <div className="flex items-center justify-center min-h-screen px-6 sm:px-0 bg-gradient-to-br from-blue-200 to bg-purple-400">
-
       <div className="bg-slate-900 p-10 rounded-lg shadow-lg w-full sm:w-96 text-indigo-300 text-sm">
         <h2 className="text-3xl font-semibold text-white text-center mb-3">
           {state === "Sign Up" ? "Create account" : "Login"}
