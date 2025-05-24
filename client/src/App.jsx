@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -7,8 +7,11 @@ import ResetPass from "./pages/ResetPass";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/Navbar";
+import { AppContent } from "./context/AppContext";
 
 const App = () => {
+    const {  isLoggedin} = useContext(AppContent);
+  
   return (
     <div>
       <ToastContainer/>

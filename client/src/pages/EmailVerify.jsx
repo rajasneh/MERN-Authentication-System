@@ -90,7 +90,7 @@ const EmailVerify = () => {
               ></input>
             ))}
         </div>
-        <button className="w-full py-3 bg-gradient-to-r from-indigo=500 to-indigo-900 text-white rounded-full cursor-pointer">
+        <button className="w-full py-2.5 bg-gradient-to-r from-indigo-500 to-indigo-900 text-white rounded-full cursor-pointer">
           Verify email
         </button>
       </form>
