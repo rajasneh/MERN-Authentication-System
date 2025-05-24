@@ -6,11 +6,13 @@ import EmailVerify from "./pages/EmailVerify";
 import ResetPass from "./pages/ResetPass";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
     <div>
       <ToastContainer/>
+      <Navbar/>
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
