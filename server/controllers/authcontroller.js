@@ -59,6 +59,7 @@ export const login = async (req, res) => {
       message: "Email and password are required",
     });
   }
+
   try {
     const user = await userModel.findOne({ email });
     if (!user) {
@@ -73,14 +74,18 @@ export const login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
+
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    return res.json({ success: true });
+    return res.json({
+      success: true,
+      message: "Login successful",
+    });
   } catch (error) {
     return res.json({
       success: false,

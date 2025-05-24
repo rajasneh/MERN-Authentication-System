@@ -5,6 +5,8 @@ const userAuth = async (req, res, next) => {
   if (!token) {
     return res.json({ success: false, message: "Not Authorized, Login again" });
   }
+  // console.log("Cookies:", req.cookies);
+  // console.log("Token:", req.cookies.token);
 
   try {
     const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
