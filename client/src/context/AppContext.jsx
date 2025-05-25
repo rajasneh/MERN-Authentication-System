@@ -22,13 +22,7 @@ export const AppContextProvider = (props) => {
     }
   };
   const getUserData = async () => {
-    if (
-      data.success &&
-      JSON.stringify(data.userData) !== JSON.stringify(userData)
-    ) {
-      setUserData(data.userData);
-    }
-
+   
     try {
       const { data } = await axios.get(backendUrl + "/api/user/data");
       data.success ? setUserData(data.userData) : toast.error(data.message);
