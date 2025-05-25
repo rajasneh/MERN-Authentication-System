@@ -34,6 +34,7 @@ export const register = async (req, res) => {
       secure: true, // true in prod
       sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",
     });
 
     //sending welcome mail
@@ -80,6 +81,7 @@ export const login = async (req, res) => {
       secure: true,
       sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",
     });
 
     return res.json({
@@ -99,7 +101,8 @@ export const logout = async (req, res) => {
     res.clearCookie("token", {
       httpOnly: true,
       secure: true,
-     Site: "none",
+      Site: "none",
+      path: "/",
     });
     return res.json({ success: true, message: "Logged out" });
   } catch (error) {
