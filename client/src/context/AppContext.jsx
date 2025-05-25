@@ -22,7 +22,6 @@ export const AppContextProvider = (props) => {
     }
   };
   const getUserData = async () => {
-   
     try {
       const { data } = await axios.get(backendUrl + "/api/user/data");
       data.success ? setUserData(data.userData) : toast.error(data.message);
@@ -31,10 +30,9 @@ export const AppContextProvider = (props) => {
     }
   };
 
-  useEffect(() => {
-    getAuhState();
-  }, []); // ✅ runs only once on initial render
-
+useEffect(() => {
+  getAuhState();
+}, []); // ✅ runs only once on initial render
   const value = {
     backendUrl,
     isLoggedin,
