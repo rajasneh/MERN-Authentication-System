@@ -39,7 +39,7 @@ While most auth systems either:
 - **Frontend**: React, Axios, React Router, Toastify  
 - **Backend**: Node.js, Express, MongoDB, JWT, Cookie-parser, Nodemailer  
 - **Database**: MongoDB Atlas  
-- **Deployment**: Vercel (frontend) & Render (backend)  
+- **Deployment**: Render (frontend) & Render (backend)  
 
 ---
 
@@ -48,8 +48,7 @@ While most auth systems either:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/MERN-Authentication-System.git
-cd MERN-Authentication-System
+git clone https://github.com/rajasneh/MERN-Authentication-System
 ```
 
 ### 2. Setup the Backend
@@ -62,22 +61,20 @@ npm install
 Create a `.env` file in the `/server` directory:
 
 ```
-PORT=5000
 MONGO_URI=your_mongo_uri
 JWT_SECRET=your_jwt_secret
 NODE_ENV=development
-CLIENT_URL=http://localhost:5173
 
-EMAIL_HOST=smtp.yourprovider.com
-EMAIL_PORT=587
-EMAIL_USER=your_email@example.com
-EMAIL_PASS=your_email_password
+SMTP_USER=your SMTP user
+SMTP_PASS=your SMTP password
+SENDER_EMAIL=Email  of sender
+
 ```
 
 Start backend:
 
 ```bash
-npm run dev
+npm start server
 ```
 
 ---
@@ -92,7 +89,7 @@ npm install
 Create a `.env` file in the `/client` directory:
 
 ```
-VITE_BACKEND_URL=http://localhost:5000
+VITE_BACKEND_URL=http://localhost:4000
 ```
 
 Start frontend:
@@ -106,12 +103,15 @@ npm run dev
 ## 🧪 API Routes (Backend)
 
 - `POST /api/auth/register` → Register a new user  
-- `POST /api/auth/login` → Login with email & password  
+- `POST /api/auth/login` → Login with email & password
+- `POST /api/auth/logout` → Logout and clear cookie
+- `POST /api/auth/send-verify-otp` → Send email verify OTP to email
+- `GET /api/auth/verify-account` → Checks the email verify otp and verifies
 - `GET /api/auth/is-auth` → Check if user is authenticated  
+- `POST /api/auth/send-reset-otp` → Send password reset OTP to email
+- - `POST /api/auth/send-reset-otp` → Send OTP to reset password
+- - `POST /api/auth/reset-password` → Verifies the password reset OTP and give option to reset the password   
 - `GET /api/user/data` → Get user details if authenticated  
-- `POST /api/auth/logout` → Logout and clear cookie  
-- `POST /api/auth/forgot-password` → Send reset link to email  
-- `POST /api/auth/reset-password/:token` → Reset password with valid token  
 
 ---
 
