@@ -37,7 +37,7 @@ export const AppContextProvider = (props) => {
     }
   };
 
-  uuseEffect(() => {
+  useEffect(() => {
     getAuhState();
   }, []); // ✅ runs only once on initial render
 
